@@ -17,6 +17,7 @@ html {
 
 body {
     padding: 0.5em;
+    text-align: center;
 
     display: flex;
     flex-flow: column nowrap;
@@ -35,13 +36,29 @@ body {
 }
 
 /* REDEEM SECTION */
+main {
+    text-align: center;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4em;
+}
+
+main img {
+    transform: scale(0);
+}
+
 #redeem-container {
-    width: min(60vw, 650px);
+    width: min(80vw, 650px);
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     gap: 1em;
+
+    transition: all 0.1s linear;
 }
 
 #redeem-container input[type='text'] {
@@ -63,7 +80,7 @@ body {
 }
 
 #redeem-container button {
-    font-size: inherit;
+    font-size: 1.2em;
     font-weight: bold;
     padding: 0.5em;
 
@@ -81,4 +98,119 @@ body {
 #redeem-container button:active {
     transform: scale(0.96);
 }
+
+#result-message {
+    display: block;
+    transform: scale(0);
+    opacity: 0;
+    font-weight: bolder;
+    text-transform: uppercase;
+    padding: 0.5em;
+
+    /* background-color: #90ee90; */
+    border: 4px solid #000;
+    border-radius: 16px;
+}
+
+/* ANIMATIONS */
+
+/* RESULT MESSAGE */
+.result-message-intro {
+    animation-name: messageIntro;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes messageIntro {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.result-message-out {
+    animation-name: messageOut;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes messageOut {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* RESULT IMAGE */
+.result-image-intro {
+    animation-name: imageIntro;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes imageIntro {
+    0% {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2) rotate(180deg);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+.result-image-out {
+    animation-name: imageOut;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes imageOut {
+    0% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2) rotate(180deg);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+
 
