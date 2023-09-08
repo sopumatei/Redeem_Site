@@ -1,3 +1,19 @@
+// LOCAL STORAGE REDEEMED CODES
+let redeemedCodes = []
+
+const getRedeemedCodes = () => {
+    if(localStorage.getItem('redeemedCodes')){
+        redeemedCodes = JSON.parse(localStorage.getItem('redeemedCodes'))
+    }
+}
+
+const setRedeemedCodes = () => {
+    console.log('code stored');
+    localStorage.setItem('redeemedCodes', JSON.stringify(redeemedCodes))
+}
+
+getRedeemedCodes()
+
 // REDEEM VARIABLES
 const redeemInput = document.getElementById('redeem-input')
 const redeemButton = document.getElementById('redeem-button')
@@ -24,14 +40,33 @@ const checkCode = (code) => {
     return false
 }
 
+const checkIfRedeemed = (code) => {
+    for(let i = 0; i < redeemedCodes.length; ++i) {
+        if(redeemedCodes[i] == code) {
+            return true
+        }
+    }
+
+    return false
+}
+
 // REDEEM 
 redeemButton.addEventListener('click', () => {
     if(redeemInput.value) { //checks if the input is not empty
-        if(checkCode(redeemInput.value)) { //checks if the code is valid
+        if(checkCode(redeemInput.value) && !checkIfRedeemed(redeemInput.value)) { //checks if the code is valid or it hasn't already been redeemed
+            redeemedCodes.push(redeemInput.value)
+            setRedeemedCodes()
+
             resultMessage.textContent = 'VALID CODE'
             resultMessage.style.backgroundColor = correctBgColor
             
             resultIcon.setAttribute('src', correctIconSrc)
+        }
+        else if (checkCode(redeemInput.value) && checkIfRedeemed(redeemInput.value)) {
+            resultMessage.textContent = 'ALREADY REDEEMED'
+            resultMessage.style.backgroundColor = wrongBgColor
+            
+            resultIcon.setAttribute('src', wrongIconSrc)
         }
         else {
             resultMessage.textContent = 'INVALID CODE'
@@ -47,6 +82,6 @@ redeemButton.addEventListener('click', () => {
             resultMessage.className = 'result-message-out'
             resultIcon.className = 'result-image-out'
             redeemInput.value = ''
-        }, 2300)
+        }, 1800)
     }
 })
