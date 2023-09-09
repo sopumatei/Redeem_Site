@@ -85,3 +85,8 @@ redeemButton.addEventListener('click', () => {
         }, 1800)
     }
 })
+
+// COPYRIGHT
+const copyrightText= document.getElementById('copyright-text')
+const currentDate = new Date
+copyrightText.textContent = `All rights reserved ${currentDate.getFullYear()} © Giani's Codes`

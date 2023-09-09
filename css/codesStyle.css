@@ -1,0 +1,107 @@
+/* FONT IMPORT */
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+
+button {
+    background-color: #fff;
+}
+
+/* GENERAL STYLES */
+html {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+}
+
+body {
+    padding: 0.5em;
+    min-height: 100vh;
+    text-align: center;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+/* TIMER SECTION */
+#timer {
+    width: min(80%, 650px);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* GET CODE SECTION */
+#get-code-container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2em;
+}
+
+#get-code-button {
+    font-size: 1.2em;
+    font-weight: bold;
+
+    padding: 0.5em;
+    margin-left: -30px;
+
+    border: 5px solid #000;
+    opacity: 0.6;
+
+    transition: all 0.1s linear;
+}
+
+.canClick:hover {
+    background-color: #438afc;
+    cursor: pointer;
+}
+
+.canClick:active {
+    transform: scale(0.96);
+}
+
+#code {
+    transform: scale(0);
+    display: block;
+    width: 30vw;
+    margin-left: -30px;
+
+    border: 5px solid #000;
+    padding: 0.5em;
+
+    transition: all 0.3s linear;
+}
+
+/* RESET TIME SECTION */
+#reset-time-button {
+    transform: scale(0);
+    font-size: 1.2em;
+    font-weight: bold;
+
+    padding: 0.5em;
+    margin-left: -30px;
+
+    border: 5px solid #000;
+
+    transition: all 0.1s linear;
+}
+
+#reset-time-button:hover {
+    background-color: #ff6347;
+    cursor: pointer;
+}
+
+#reset-time-button:active {
+    transform: scale(0.96);
+}
