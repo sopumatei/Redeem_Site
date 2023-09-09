@@ -46,13 +46,21 @@ header {
     -moz-osx-font-smoothing: grayscale;
 }
 
-#header-codes {
-    cursor: pointer;
-
+#header-codes a{
+    color: #000;
+    text-decoration: none;
     transition: all 0.2s linear;
 }
 
-#header-codes:hover {
+#header-codes a:visited {
+    color: #000;
+}
+
+#header-codes a:hover {
+    color: #438afc;
+}
+
+#header-codes a:active {
     color: #438afc;
 }
 
