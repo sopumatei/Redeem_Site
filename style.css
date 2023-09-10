@@ -241,5 +241,22 @@ main img {
     }
 }
 
+/* MEDIA QUERIES */
+@media screen and (min-width: 300px) {
+    html {
+        font-size: 1rem;
+    }
+}
 
+@media screen and (min-width: 600px) {
+    html {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    html {
+        font-size: 1.8rem;
+    }
+}
 
