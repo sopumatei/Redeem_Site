@@ -10,6 +10,7 @@ let timeToWait = null
 
 // GET CODE VARIABLES
 import codes from '../codes.js'
+let redeemedCodes = JSON.parse(localStorage.getItem('redeemedCodes'))
 
 const getButton = document.getElementById('get-code-button')
 let canClick = false
@@ -17,14 +18,42 @@ let gotCode = false
 
 const codeText = document.getElementById('code')
 
+// CHECK IF CODE WAS ALREADY REDEEMED
+const checkIfRedeemed= (code) => {
+    if(redeemedCodes) {
+        for(let i = 0; i < redeemedCodes.length; ++i) {
+            if(redeemedCodes[i] == code) {
+                return true
+            }
+        }
+        return false
+    }
+    else {
+        return false
+    }
+}
+
 // WHEN THE getButton IS CLICKED
 getButton.addEventListener('click', () => {
-    if(canClick && !gotCode) {
-        gotCode = true
-        let randomNr = Math.floor(Math.random() * codes.length)
-        let displayCode = codes[randomNr]
+    if(canClick) {
+        canClick = false
+        let displayCode = null
+        if(localStorage.getItem('codeGot') && JSON.parse(localStorage.getItem('codeGot')) !== "") {
+            displayCode = JSON.parse(localStorage.getItem('codeGot'))
+        }
+        else {
+            let randomNr = Math.floor(Math.random() * codes.length)
+            displayCode = codes[randomNr]
+            while(checkIfRedeemed(displayCode)) {
+                randomNr = Math.floor(Math.random() * codes.length)
+                displayCode = codes[randomNr]
+            }
+            localStorage.setItem('codeGot', JSON.stringify(displayCode))
+        }
+
         codeText.textContent = displayCode
         codeText.style.transform = 'scale(1)'
+        resetButton.style.transform = 'scale(1)'
     }
 })
 
@@ -68,6 +97,9 @@ const countdown = (valueHour, valueMinute, valueSecond) => {
 
 if(timeToWait <= 1000) {
     countdown(0, 0, 0)
+    canClick = true
+    getButton.style.opacity = '1'
+    getButton.className = 'canClick'
 }
 else {
     countdown(Math.floor(timeToWait / hour), Math.floor((timeToWait % hour) / minute), Math.floor(((timeToWait % hour) % minute) / second))
@@ -84,7 +116,6 @@ let timeCountdown = setInterval(() => {
         getButton.style.opacity = '1'
         getButton.className = 'canClick'
         clearInterval(timeCountdown)
-        resetButton.style.transform = 'scale(1)'
     }
     else {
         timeToWait -= 1000
@@ -98,38 +129,45 @@ let timeCountdown = setInterval(() => {
 
 // WHEN THE resetButton IS CLICKED
 resetButton.addEventListener('click', () => {
-    // RESET TIMER
-    currentDate = new Date
-    finishDate = new Date(currentDate.getTime() + interval)
-    localStorage.setItem('timeToWait', JSON.stringify(""))
-    getTime()
+    if(redeemedCodes.length < 10) {
+        // RESETS THE STORED CODE FROM LAST COUNTDOWN
+        localStorage.setItem('codeGot', "")
 
-    // RESET GET CODE BUTTON
-    canClick = false
-    getButton.style.opacity = '0.6'
-    getButton.className = ''
-    resetButton.style.transform = 'scale(0)'
+        // RESET TIMER
+        currentDate = new Date
+        finishDate = new Date(currentDate.getTime() + interval)
+        localStorage.setItem('timeToWait', JSON.stringify(""))
+        getTime()
 
-    // RESET CODE TEXT
-    codeText.textContent = ''
-    codeText.style.transform = 'scale(0)'
+        countdown(Math.floor(timeToWait / hour), Math.floor((timeToWait % hour) / minute), Math.floor(((timeToWait % hour) % minute) / second))
 
-    let timeCountdown = setInterval(() => {
-        if(timeToWait <= 0) {
-            countdown(0, 0, 0)
-            canClick = true
-            getButton.style.opacity = '1'
-            getButton.className = 'canClick'
-            clearInterval(timeCountdown)
-            resetButton.style.transform = 'scale(1)'
-        }
-        else {
-            timeToWait -= 1000
-            rightHour = Math.floor(timeToWait / hour)
-            rightMinute = Math.floor((timeToWait % hour) / minute)
-            rightSecond = Math.floor(((timeToWait % hour) % minute) / second)
-            countdown(rightHour, rightMinute, rightSecond)
-        }
-        console.log(`Hours: ${textHour} Minutes: ${textMinute} Seconds: ${textSecond}`)
-    }, 1000)
+        // RESET GET CODE BUTTON
+        canClick = false
+        getButton.style.opacity = '0.6'
+        getButton.className = ''
+        resetButton.style.transform = 'scale(0)'
+
+        // RESET CODE TEXT
+        codeText.textContent = ''
+        codeText.style.transform = 'scale(0)'
+
+        let timeCountdown = setInterval(() => {
+            if(timeToWait <= 0) {
+                countdown(0, 0, 0)
+                canClick = true
+                getButton.style.opacity = '1'
+                getButton.className = 'canClick'
+                clearInterval(timeCountdown)
+                resetButton.style.transform = 'scale(1)'
+            }
+            else {
+                timeToWait -= 1000
+                rightHour = Math.floor(timeToWait / hour)
+                rightMinute = Math.floor((timeToWait % hour) / minute)
+                rightSecond = Math.floor(((timeToWait % hour) % minute) / second)
+                countdown(rightHour, rightMinute, rightSecond)
+            }
+            console.log(`Hours: ${textHour} Minutes: ${textMinute} Seconds: ${textSecond}`)
+        }, 1000)
+    }
 })
