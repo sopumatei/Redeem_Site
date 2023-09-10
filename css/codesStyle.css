@@ -26,13 +26,56 @@ body {
 
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 2em;
 }
 
+h1 {
+    margin-top: 5vh;
+}
+
+/* HEADER SECTION */
+header {
+    padding: 0.5em;
+    /* background-color: #438afc; */
+    width: 100vw;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#exit-button {
+    margin-left: 10px;
+    padding: 0.5em;
+    width: 3rem;
+    height: 3rem;
+
+    font-size: 1.2em;
+    border-radius: 3rem;
+    border: none;
+
+    background-color: #fff;
+    color: #000;
+
+    transition: all 0.2s linear;
+}
+
+#exit-button:hover {
+    box-shadow: rgba(130, 137, 144, 0.2) 0px 10px 20px;
+    cursor: pointer;
+}
+
+/* #exit-button a {
+    color: #000;
+    text-decoration: none;
+} */
+
 /* TIMER SECTION */
 #timer {
+    margin-top: 5vh;
     width: min(80%, 650px);
     display: flex;
     flex-flow: row nowrap;
@@ -42,6 +85,7 @@ body {
 
 /* GET CODE SECTION */
 #get-code-container {
+    margin-top: 5vh;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
@@ -90,7 +134,8 @@ body {
     font-weight: bold;
 
     padding: 0.5em;
-    margin-left: -30px;
+    margin-left: -20px;
+    /* margin-top: -30vh; */
 
     border: 5px solid #000;
 
